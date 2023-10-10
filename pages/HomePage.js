@@ -1,18 +1,14 @@
 // pages/homePage.js
+const commonUtils = require('../utils/commonUtils');
+const utils = require('../utils/commonUtils')
 class HomePage {
     constructor(page) {
       this.page = page;
     }
   
     async navigate() {
-      await this.page.goto('https://www.flipkart.com/');
+      new commonUtils(page).navigateTo("https://web-playground.ultralesson.com/");
     }
-  
-    getProductCount() {
-        
-    }
-    
-    // Add page-specific methods here
   }
   
   module.exports = HomePage;
