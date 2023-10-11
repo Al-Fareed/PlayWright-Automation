@@ -6,7 +6,7 @@ class HomePage {
     }
   
     async navigate() {
-      new commonUtils(page).navigateTo("https://web-playground.ultralesson.com/");
+     await new commonUtils(this.page).navigateTo("https://web-playground.ultralesson.com/");
     }
   }
   

@@ -18,7 +18,7 @@ class LoginPage {
       
       // await this.page.locator('id=CustomerPassword').fill("alfareed@TV781")
       await this.page.click('#customer_login > button');
-      await this.page.waitForTimeout(2000); 
+      await this.page.waitForTimeout(10000); 
   }
 
   async isLoggedIn() {
