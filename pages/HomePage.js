@@ -1,6 +1,5 @@
 // pages/homePage.js
 const commonUtils = require('../utils/commonUtils');
-const utils = require('../utils/commonUtils')
 class HomePage {
     constructor(page) {
       this.page = page;
