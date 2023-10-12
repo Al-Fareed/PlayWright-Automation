@@ -1,16 +1,18 @@
 class ProductPage {
-    constructor(page) {
-      this.page = page;
-    }
-  
-    async navigate() {
-      // Implement code to navigate to a product page, e.g., by clicking on a product link
-    }
-  
-    async addToCart() {
-      // Implement code to add the product to the cart
-    }
+  constructor(page) {
+    this.page = page;
   }
-  
-  module.exports = ProductPage;
-  
+
+  async addToCart() {
+    await this.page.click(
+      "#product-form-template--15328405717213__main > div > button"
+    );
+  }
+  async isCountElementPresent() {
+    await this.page.waitForSelector("#cart-icon-bubble > div", {
+      state: "attached",
+    });
+  }
+}
+
+module.exports = ProductPage;

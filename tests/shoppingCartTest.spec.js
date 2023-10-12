@@ -10,44 +10,32 @@ test('User log in', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.navigate();
   await loginPage.login();
-});
 
-test('Go to Home page', async ({ page }) => {
   const homePage = new HomePage(page);
   await homePage.navigate();
-});
 
-test('Search for a Product', async ({ page }) => {
   const catalogPage = new CatalogPage(page);
-  const homePage = new HomePage(page);
   await homePage.navigate();
   await catalogPage.searchProduct('Jeans');
-});
+  await catalogPage.selectProduct();
 
-test('Select a Product from Catalog', async ({ page }) => {
-  const catalogPage = new CatalogPage(page);
-  // await catalogPage.navigate();
-});
+  // Implement this test as needed
 
-test('Product Purchase Flow', async ({ page }) => {
   const productPage = new ProductPage(page);
-  const cartPage = new CartPage(page);
-  const shippingDetailsPage = new ShippingDetailsPage(page);
-
-  // Navigate to a product page and add the product to the cart
-  await productPage.navigate();
   await productPage.addToCart();
+    await productPage.isCountElementPresent();
+  
 
-  // Navigate to the cart and view its contents
-  await cartPage.navigate();
+  const cartPage = new CartPage(page);
   await cartPage.viewCart();
-
-  // Proceed to the checkout process and provide shipping details
   await cartPage.checkout();
+  
+  const shippingDetailsPage = new ShippingDetailsPage(page);
   await shippingDetailsPage.provideShippingDetails({
     name: 'John Doe',
     address: '123 Main St',
     city: 'Anytown',
     postalCode: '12345',
   });
+  await page.waitForTimeout(2000); 
 });
