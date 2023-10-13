@@ -3,10 +3,6 @@ class LoginPage {
     this.page = page;
   }
 
-  async navigate() {
-    await this.page.goto("https://web-playground.ultralesson.com/");
-  }
-
   async login() {
     await this.page
       .locator(

@@ -5,32 +5,31 @@ const CatalogPage = require('../pages/CatalogPage');
 const ProductPage = require('../pages/productPage');
 const CartPage = require('../pages/cartPage');
 const ShippingDetailsPage = require('../pages/shippingDetailsPage');
+const commonUtils = require('../utils/commonUtils');
 
-test('User log in', async ({ page }) => {
+test('Adding product to cart', async ({ page }) => {
   const loginPage = new LoginPage(page);
-  await loginPage.navigate();
-  await loginPage.login();
-
   const homePage = new HomePage(page);
-  await homePage.navigate();
-
   const catalogPage = new CatalogPage(page);
-  await homePage.navigate();
+  const productPage = new ProductPage(page);
+  const shippingDetailsPage = new ShippingDetailsPage(page);
+  const cartPage = new CartPage(page);
+  const utils = new commonUtils(page);
+
+  await utils.navigateTo('https://web-playground.ultralesson.com/');
+  await loginPage.login();
+  
+  await utils.navigateTo('https://web-playground.ultralesson.com/');
   await catalogPage.searchProduct('Jeans');
   await catalogPage.selectProduct();
 
-  // Implement this test as needed
-
-  const productPage = new ProductPage(page);
   await productPage.addToCart();
-    await productPage.isCountElementPresent();
+  await productPage.isCountElementPresent();
   
 
-  const cartPage = new CartPage(page);
   await cartPage.viewCart();
   await cartPage.checkout();
   
-  const shippingDetailsPage = new ShippingDetailsPage(page);
   await shippingDetailsPage.provideShippingDetails({
     name: 'John Doe',
     address: '123 Main St',
