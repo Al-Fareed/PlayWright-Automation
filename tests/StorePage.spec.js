@@ -13,7 +13,7 @@ test("Select a product", async ({ page }) => {
   await mainNav.selectNav("store");
 
   await storePage.selectAvailability();
-  await storePage.selectSorting();
+  await storePage.selectSortBy();
 
   await page.waitForTimeout(2500);
 });

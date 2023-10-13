@@ -14,7 +14,7 @@ test("Send message in Contact Page", async ({ page }) => {
 
   await expect(page).toHaveTitle(/Contact – ul-web-playground/);
 
-  await contactPage.fillDetails("Al-Fareed","alfareed@testvagrant.com","7348842781");
+  await contactPage.fillDetails();
   await contactPage.addComment();
   await contactPage.sendComment();
 

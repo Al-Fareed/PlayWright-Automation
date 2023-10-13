@@ -12,7 +12,7 @@ class StorePage {
     );
   }
 
-  async selectSorting() {
+  async selectSortBy() {
     await this.page.selectOption("#SortBy",'Price, low to high');
   }
 }

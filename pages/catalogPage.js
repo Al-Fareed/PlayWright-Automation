@@ -11,7 +11,6 @@ class CatalogPage {
     
     async selectProduct() {
         await this.page.click('#predictive-search-option-1 > a');
-      // Implement code to select a product from the catalog (e.g., click on a product's link)
     }
   }
   

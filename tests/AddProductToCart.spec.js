@@ -20,9 +20,14 @@ test('Adding product to cart', async ({ page }) => {
   await loginPage.login();
   
   await utils.navigateTo('https://web-playground.ultralesson.com/');
+  await expect(page).toHaveTitle(/ul-web-playground/);
+  
   await catalogPage.searchProduct('Jeans');
   await catalogPage.selectProduct();
+  await expect(page).toHaveTitle(/Belted Jeans – ul-web-playground/);
 
+  
+  await productPage.addQty();
   await productPage.addToCart();
   await productPage.isCountElementPresent();
   
@@ -38,3 +43,4 @@ test('Adding product to cart', async ({ page }) => {
   });
   await page.waitForTimeout(2000); 
 });
+// npx playwright test tests/AddProductToCart.spec.js --project=chromium --headed 

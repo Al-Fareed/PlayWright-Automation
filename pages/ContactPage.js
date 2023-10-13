@@ -1,11 +1,12 @@
+const getCredentials = require('../data/config.json')
 class ContactPage{
     constructor(page){
         this.page = page;
     }
-    async fillDetails(name,email,phone){
-        await this.page.locator('id=ContactForm-name').fill(name);
-        await this.page.locator('id=ContactForm-email').fill(email);
-        await this.page.locator('id=ContactForm-phone').fill(phone);
+    async fillDetails(){
+        await this.page.locator('id=ContactForm-name').fill(getCredentials.name);
+        await this.page.locator('id=ContactForm-email').fill(getCredentials.email);
+        await this.page.locator('id=ContactForm-phone').fill(getCredentials.phone);
     }
     async addComment(){
         let comment = "Why this kolaveri kolaveri di.."
