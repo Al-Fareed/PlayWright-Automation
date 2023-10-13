@@ -21,3 +21,4 @@ test("Send message in Contact Page", async ({ page }) => {
   await page.waitForTimeout(2000); 
 });
 
+// npx playwright test tests/ContactPageTesting.spec.js --project=chromium --headed 
