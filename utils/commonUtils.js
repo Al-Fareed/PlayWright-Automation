@@ -1,17 +1,19 @@
 class commonUtils {
-    constructor(page){
-        this.page = page;
+  constructor(page) {
+    this.page = page;
+  }
+  async navigateTo(url) {
+    await this.page.goto(url, { fullScreen: true });
+  }
+  async isElementPresent(selector) {
+    const elementHandle = await this.page.isVisible(selector); 
+    if (elementHandle) {
+        console.log("Element found..!");
+        return true;
+    } else {
+        console.log("Element not found..!");
+      return false;
     }
-    async navigateTo(url){
-        await this.page.goto(url);
-    }
-    async isElementPresent(selector){
-        try {
-            await page.waitForSelector(selector, { timeout: 1000 });
-            return true; 
-          } catch (error) {
-            return false; 
-          }
-    }
+  }
 }
 module.exports = commonUtils;

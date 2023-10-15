@@ -34,8 +34,15 @@ module.exports = defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: {
+        ...devices["Desktop Chromium"],
+        viewport : null,
+        launchOptions: {
+          args: ["--start-maximized"], // starting the browser in full screen
+          slowMo: 1000, // a 1000 milliseconds pause before each operation. Useful for slow systems.
+        },
+      },
     },
 
     {

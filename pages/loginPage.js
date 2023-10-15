@@ -10,8 +10,8 @@ class LoginPage {
         "#shopify-section-header > sticky-header > header > div > a.header__icon.header__icon--account.link.focus-inset.small-hide"
       )
       .click();
-      await this.page.locator('#CustomerEmail').fill(getCredentials.email)
-      await this.page.locator('#CustomerPassword').fill(getCredentials.password)
+      await this.page.type('#CustomerEmail',getCredentials.email)
+      await this.page.type('#CustomerPassword',getCredentials.password)
       
       await this.page.click('#customer_login > button');
       await this.page.waitForTimeout(2000); 

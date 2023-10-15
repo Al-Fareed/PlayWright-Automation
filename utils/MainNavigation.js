@@ -8,12 +8,13 @@ class MainNavigation {
   async isSideNavPresent() {
       const utils = new commonUtils(this.page);
       return utils.isElementPresent(
-      "#shopify-section-header > sticky-header > header > header-drawer > details > summary"
+      "#shopify-section-header > sticky-header > header > header-drawer > details > summary > span > svg.icon.icon-hamburger"
     );
   }
 
   async getSelector(option) {
     if (await this.isSideNavPresent()) {
+      await this.page.click('#shopify-section-header > sticky-header > header > header-drawer > details > summary > span > svg.icon.icon-hamburger')
       switch (option.toLowerCase()) {
         case "home":
           return "#menu-drawer > div > div > nav > ul > li:nth-child(1) > a";

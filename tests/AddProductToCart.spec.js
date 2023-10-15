@@ -29,7 +29,7 @@ test('Adding product to cart', async ({ page }) => {
   
   await productPage.addQty();
   await productPage.addToCart();
-  await productPage.isCountElementPresent();
+  await productPage.waitForCountElementPresent();
   
 
   await cartPage.viewCart();

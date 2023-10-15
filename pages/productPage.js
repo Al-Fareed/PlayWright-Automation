@@ -4,7 +4,7 @@ class ProductPage {
   }
 
   async addQty(){
-    await this.page.locator('#Quantity-template--15328405717213__main').fill('2');
+    await this.page.type('#Quantity-template--15328405717213__main','2');
   }
 
   async addToCart() {
@@ -12,7 +12,7 @@ class ProductPage {
       "#product-form-template--15328405717213__main > div > button"
     );
   }
-  async isCountElementPresent() {
+  async waitForCountElementPresent() {
     await this.page.waitForSelector("#cart-icon-bubble > div", {
       state: "attached",
     });

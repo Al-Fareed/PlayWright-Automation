@@ -4,13 +4,14 @@ class ContactPage{
         this.page = page;
     }
     async fillDetails(){
-        await this.page.locator('id=ContactForm-name').fill(getCredentials.name);
-        await this.page.locator('id=ContactForm-email').fill(getCredentials.email);
-        await this.page.locator('id=ContactForm-phone').fill(getCredentials.phone);
+        console.log(getCredentials.name);
+        await this.page.type('id=ContactForm-name',getCredentials.name);
+        await this.page.type('id=ContactForm-email',getCredentials.email);
+        await this.page.type('id=ContactForm-phone',getCredentials.phone);
     }
     async addComment(){
-        let comment = "Why this kolaveri kolaveri di.."
-        await this.page.locator('id=ContactForm-body').fill(comment)
+        let comment = "Hi there, this message is to test check";
+        await this.page.type('id=ContactForm-body',comment)
     }
     async sendComment(){
         await this.page.click('#ContactForm > div.contact__button > button');
