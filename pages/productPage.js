@@ -3,8 +3,8 @@ class ProductPage {
     this.page = page;
   }
 
-  async addQty(){
-    await this.page.type('#Quantity-template--15328405717213__main','2');
+  async addQty() {
+    await this.page.fill("#Quantity-template--15328405717213__main", "2");
   }
 
   async addToCart() {

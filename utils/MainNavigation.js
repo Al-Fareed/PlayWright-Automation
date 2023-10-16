@@ -3,18 +3,18 @@ const commonUtils = require("./commonUtils");
 class MainNavigation {
   constructor(page) {
     this.page = page;
+    this.sideNavElementLocator =
+      "#shopify-section-header > sticky-header > header > header-drawer > details > summary > span > svg.icon.icon-hamburger";
   }
-  
+
   async isSideNavPresent() {
-      const utils = new commonUtils(this.page);
-      return utils.isElementPresent(
-      "#shopify-section-header > sticky-header > header > header-drawer > details > summary > span > svg.icon.icon-hamburger"
-    );
+    const utils = new commonUtils(this.page);
+    return utils.isElementPresent(this.sideNavElementLocator);
   }
 
   async getSelector(option) {
     if (await this.isSideNavPresent()) {
-      await this.page.click('#shopify-section-header > sticky-header > header > header-drawer > details > summary > span > svg.icon.icon-hamburger')
+      await this.page.click(this.sideNavElementLocator);
       switch (option.toLowerCase()) {
         case "home":
           return "#menu-drawer > div > div > nav > ul > li:nth-child(1) > a";
@@ -46,12 +46,12 @@ class MainNavigation {
   }
 
   async selectNav(option) {
-    let selector =await this.getSelector(option);
-    console.log('Got the selector', selector);
+    let selector = await this.getSelector(option);
+    console.log("Got the selector", selector);
     if (selector) {
       await this.page.click(selector.toString());
-    }else{
-        console.log("No such option found in navbar");
+    } else {
+      console.log("No such option found in navbar");
     }
   }
 }
