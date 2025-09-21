@@ -1,11 +1,6 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
-
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// require('dotenv').config();
+// require('dotenv').config(); // Uncomment if using .env
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -19,68 +14,65 @@ module.exports = defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://127.0.0.1:3000',
+  workers: process.env.CI ? 2 : undefined,
+  
+  /* Multiple reporters for better visibility */
+  reporter: [
+    ['list'], // console-friendly
+    ['html', { open: 'never' }], // HTML report
+    ['json', { outputFile: 'test-results.json' }], // For CI tools
+    ['allure-playwright'], // Requires npm install -D allure-playwright
+  ],
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+  /* Shared settings for all projects */
+  use: {
+    baseURL: process.env.BASE_URL || 'http://127.0.0.1:3000',
+    headless: !!process.env.CI,
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    trace: 'retain-on-failure', // Always keep trace if failure
+    actionTimeout: 30 * 1000, // per action
+    navigationTimeout: 60 * 1000,
   },
 
-  /* Configure projects for major browsers */
+  /* Configure projects */
   projects: [
     {
-      name: "chromium",
+      name: 'chromium',
       use: {
-        ...devices["Desktop Chromium"],
-        viewport : null,
+        ...devices['Desktop Chrome'],
+        viewport: null,
         launchOptions: {
-          args: ["--start-maximized"], // starting the browser in full screen
-          slowMo: 1000, // a 1000 milliseconds pause before each operation. Useful for slow systems.
+          args: ['--start-maximized'],
         },
       },
     },
-
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
-
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    /* Mobile emulation */
+    {
+      name: 'Mobile Chrome',
+      use: { ...devices['Pixel 5'] },
+    },
+    {
+      name: 'Mobile Safari',
+      use: { ...devices['iPhone 12'] },
+    },
   ],
 
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://127.0.0.1:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  /* Optional: Run dev server before tests */
+  webServer: process.env.START_SERVER
+    ? {
+        command: 'npm run start',
+        url: process.env.BASE_URL || 'http://127.0.0.1:3000',
+        reuseExistingServer: !process.env.CI,
+        timeout: 120 * 1000,
+      }
+    : undefined,
 });
-
